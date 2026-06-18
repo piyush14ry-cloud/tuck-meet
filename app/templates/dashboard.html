@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section>
+  <h1>Hi {{ current_user.name.split(' ')[0] }}</h1>
+
+  {% if not matchable %}
+    <div class="flash flash-info">
+      You're not in the matching pool yet. Head to
+      <a href="{{ url_for('main.preferences') }}">Preferences</a> to add availability,
+      pick activities, and switch on matching.
+    </div>
+  {% else %}
+    <p class="muted">You're in the pool. The next run is each day at 5&nbsp;PM.</p>
+  {% endif %}
+
+  <h2>Recent introductions</h2>
+  {% if matches %}
+    <ul class="match-list">
+      {% for m in matches %}
+        <li>
+          <strong>{{ activity_labels[m.activity] }}</strong>
+          <span class="muted">{{ m.day }} {{ m.block }}</span>
+          <div class="people">
+            {% for member in m.members %}
+              {% if member.user_id != current_user.id %}
+                <span>{{ member.user.name }} &middot;
+                  <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a></span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No introductions yet - they'll appear here after the next run.</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Your preferences{% endblock %}
+{% block content %}
+<section class="form-card wide">
+  <h1>Your preferences</h1>
+  <form method="post">
+    {{ form.hidden_tag() }}
+
+    <fieldset>
+      <legend>What are you open to?</legend>
+      <div class="chip-grid">
+        {% for a in activities %}
+          <label class="chip">
+            <input type="checkbox" name="activity-{{ a }}"
+                   {% if a in selected_activities %}checked{% endif %}>
+            {{ activity_labels[a] }}
+          </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>When are you usually free?</legend>
+      <table class="avail-grid">
+        <thead>
+          <tr><th></th>{% for b in blocks %}<th>{{ b|capitalize }}</th>{% endfor %}</tr>
+        </thead>
+        <tbody>
+          {% for day in days %}
+          <tr>
+            <th>{{ day }}</th>
+            {% for b in blocks %}
+            <td>
+              <input type="checkbox" name="avail-{{ day }}-{{ b }}"
+                     {% if (day, b) in selected_slots %}checked{% endif %}>
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Matching</legend>
+      <label class="checkbox">
+        {{ form.opted_in(checked=opted_in) }} {{ form.opted_in.label.text }}
+      </label>
+      <p class="muted">You're only ever matched while this is on. Turn it off any time.</p>
+    </fieldset>
+
+    {{ form.submit(class="btn") }}
+  </form>
+</section>
+{% endblock %}

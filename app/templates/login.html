@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<section class="form-card">
+  <h1>Sign in</h1>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <label>{{ form.email.label }}{{ form.email(autocomplete="email") }}</label>
+    {% for e in form.email.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+    <label>{{ form.password.label }}{{ form.password(autocomplete="current-password") }}</label>
+    {% for e in form.password.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+    <label class="checkbox">{{ form.remember() }} {{ form.remember.label.text }}</label>
+    {{ form.submit(class="btn") }}
+  </form>
+  <p class="muted">New here? <a href="{{ url_for('auth.register') }}">Create an account</a>.</p>
+</section>
+{% endblock %}

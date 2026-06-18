@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Find your people.<br><em>No pressure.</em></h1>
+  <p class="lede">
+    Opt in, share when you're free, and pick what you're up for - coffee, a walk,
+    eating out, or a small-group meal. Tuck Meet quietly finds overlaps and emails
+    a friendly introduction. No chat. No profiles. No feed. No tracking.
+  </p>
+  <div class="cta-row">
+    <a class="btn" href="{{ url_for('auth.register') }}">Join with your Tuck email</a>
+    <a class="btn btn-ghost" href="{{ url_for('auth.login') }}">Sign in</a>
+  </div>
+</section>
+
+<section class="how">
+  <h2>How it works</h2>
+  <ol>
+    <li>Sign up with your <strong>@tuck.dartmouth.edu</strong> email and verify it.</li>
+    <li>Choose your availability and the kinds of meetups you're open to.</li>
+    <li>Each day at 5&nbsp;PM we look for overlaps and send low-key intros.</li>
+    <li>Meet if it works - skip it if you're busy. Opt out any time.</li>
+  </ol>
+</section>
+{% endblock %}
